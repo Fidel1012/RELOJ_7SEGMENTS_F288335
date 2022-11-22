@@ -87,34 +87,5 @@ void main(void) {
        }
 }
 
-void delay(void)
-{
-    long unsigned int i;
-    for(i = 0; i < 1000000; i++){}
-}
-
-void display_binario(unsigned int num)
-{
-    if(contador & 0x1)
-        GpioDataRegs.GPASET.bit.GPIO9 = 1;
-    else
-        GpioDataRegs.GPACLEAR.bit.GPIO9 = 1;
-
-    if(contador & 0x2)
-        GpioDataRegs.GPASET.bit.GPIO11 = 1;
-    else
-        GpioDataRegs.GPACLEAR.bit.GPIO11 = 1;
-
-    if(contador & 0x4)
-        GpioDataRegs.GPBSET.bit.GPIO34 = 1;
-    else
-        GpioDataRegs.GPBCLEAR.bit.GPIO34 = 1;
-
-    if(contador & 0x8)
-        GpioDataRegs.GPBSET.bit.GPIO49 = 1;
-    else
-        GpioDataRegs.GPBCLEAR.bit.GPIO49 = 1;
-}
-
 
 

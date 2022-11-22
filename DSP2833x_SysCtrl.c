@@ -352,13 +352,13 @@ InitPeripheralClocks(void)
     SysCtrlRegs.PCLKCR1.bit.EQEP1ENCLK = 0;  // eQEP1
     SysCtrlRegs.PCLKCR1.bit.EQEP2ENCLK = 0;  // eQEP2
 
-    SysCtrlRegs.PCLKCR3.bit.CPUTIMER0ENCLK = 0; // CPU Timer 0
+    SysCtrlRegs.PCLKCR3.bit.CPUTIMER0ENCLK = 1; // CPU Timer 0
     SysCtrlRegs.PCLKCR3.bit.CPUTIMER1ENCLK = 0; // CPU Timer 1
     SysCtrlRegs.PCLKCR3.bit.CPUTIMER2ENCLK = 0; // CPU Timer 2
 
     SysCtrlRegs.PCLKCR3.bit.DMAENCLK = 0;       // DMA Clock
     SysCtrlRegs.PCLKCR3.bit.XINTFENCLK = 0;     // XTIMCLK
-    SysCtrlRegs.PCLKCR3.bit.GPIOINENCLK = 0;    // GPIO input clock
+    SysCtrlRegs.PCLKCR3.bit.GPIOINENCLK = 1;    // GPIO input clock
 
     EDIS;
 }

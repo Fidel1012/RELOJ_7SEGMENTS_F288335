@@ -206,7 +206,7 @@ void decodificadordisplay(unsigned int num)
     num = num%10;
     unidades = num;
 
-    if(j == 3000)
+    if(j == 2000)
     {
         display(unidades);
         GpioDataRegs.GPACLEAR.bit.GPIO7 = 1;
@@ -215,7 +215,7 @@ void decodificadordisplay(unsigned int num)
         GpioDataRegs.GPBSET.bit.GPIO60 = 1;
     }
 
-    if(j == 6000)
+    if(j == 4000)
     {
         display(decenas);
         GpioDataRegs.GPASET.bit.GPIO7 = 1;
@@ -224,7 +224,7 @@ void decodificadordisplay(unsigned int num)
         GpioDataRegs.GPBSET.bit.GPIO60 = 1;
     }
 
-    if(j == 9000)
+    if(j == 6000)
     {
         display(centenas);
         GpioDataRegs.GPASET.bit.GPIO7 = 1;
@@ -233,7 +233,7 @@ void decodificadordisplay(unsigned int num)
         GpioDataRegs.GPBSET.bit.GPIO60 = 1;
     }
 
-    if(j == 12000)
+    if(j == 8000)
     {
         display(millar);
         GpioDataRegs.GPASET.bit.GPIO7 = 1;
