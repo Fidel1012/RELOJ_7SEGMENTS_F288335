@@ -46,6 +46,9 @@
 #define SEGUNDO     1000000u            //Se define el segundo para la espera del timmer0
 #define MINUTO      60*SEGUNDO          //Se define el minuto por si se desea usar en el timmer0
 #define ALARM_TIME  60                  //Veces que suena la alarma
+#define ALARM_MODE  2                   //Para seleccionar el numero del selector en el que se configura la alarma
+#define CONFIG_MODE 1                   //Para seleccionar el numero del selector en el que se configura la hora
+
 
 /*
  * @brief: Enumeración para indicar en que modo se encuentra el relo, existen tres modos: Reloj, Alarma y Configuración

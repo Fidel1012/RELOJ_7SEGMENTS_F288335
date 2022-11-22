@@ -131,12 +131,12 @@ static void check_mode(Reloj_Handler * RelojHandler)
 
     unsigned int mode_sel  = (GpioDataRegs.GPADAT.bit.GPIO12) + 2*(GpioDataRegs.GPADAT.bit.GPIO13) + 4*(GpioDataRegs.GPADAT.bit.GPIO14) + 8*(GpioDataRegs.GPADAT.bit.GPIO15);
 
-    if (mode_sel == 1)
+    if (mode_sel == CONFIG_MODE)
     {
         Reloj->Mode = CONFIG;
         GpioDataRegs.GPASET.bit.GPIO11 = 1;
         GpioDataRegs.GPBCLEAR.bit.GPIO34 = 1;
-    }else if(mode_sel == 2)
+    }else if(mode_sel == ALARM_MODE)
     {
         Reloj->Mode = ALARM;
         GpioDataRegs.GPACLEAR.bit.GPIO11 = 1;
