@@ -15,6 +15,11 @@ interrupt void segundero_isr(void);
 interrupt void set_hora_isr(void);
 interrupt void set_minute_isr(void);
 
+/*****************************************************************FUNCIONES PRIVADAS******************************************************************/
+
+/*
+ * @biref: Funcion privada que sirve para asegurar que los GPIO necsearios se encuentran configurados de la manera correcta
+ */
 static void Reloj_GPIO_Init(void)
 {
     EALLOW;
@@ -65,6 +70,9 @@ static void Reloj_GPIO_Init(void)
     EDIS;
 }
 
+/*
+ * @brief: Función privada que se utiliza para configurara la interrupciones necesarias
+ */
 static void interrupt_set(void)
 {
     EALLOW;
@@ -95,6 +103,9 @@ static void interrupt_set(void)
     EDIS;
 }
 
+/*
+ * @brief: Función privada que incrementa el reloj y se asegura de que no pase los limites
+ */
 static void aumentar_reloj(void)
 {
     Reloj->Hora_Actual.minuto++;
@@ -111,6 +122,9 @@ static void aumentar_reloj(void)
     }
 }
 
+/*
+ * @brief: Función privada que verifica en que modo se encuentra el reloj
+ */
 static void check_mode(Reloj_Handler * RelojHandler)
 {
     Reloj = RelojHandler;
@@ -135,27 +149,40 @@ static void check_mode(Reloj_Handler * RelojHandler)
     }
 }
 
+/*
+ * @brief: Función privada que verifica el estado de la alarma, es deecir si esta soonando o no
+ */
 void check_alarm(Reloj_Handler *RelojHandler)
 {
+
     Reloj = RelojHandler;
 
     if(Reloj->Hora_Actual.hora == Reloj->Hora_Alarma.hora && Reloj->Hora_Actual.minuto == Reloj->Hora_Alarma.minuto && Reloj->Alarma_set == ALARM_SET)
     {
         Reloj->Alarma_Estado = ALARM_ON;
-    }else if(Reloj->Hora_Actual.hora == Reloj->Hora_Alarma.hora && Reloj->Hora_Actual.minuto == (Reloj->Hora_Alarma.minuto + 59))
+    }else if(Reloj->alarm_time == 0)
     {
         Reloj->Alarma_Estado = ALARM_OFF;
         GpioDataRegs.GPBCLEAR.bit.GPIO49 = 1;
+        Reloj->alarm_time = ALARM_TIME;
     }
 }
 
+/*
+ * @brief: Función privada que se encarga de que suene la alarma
+ */
 void alarm(void)
 {
     if(Reloj->Alarma_Estado == ALARM_ON)
     {
         GpioDataRegs.GPBTOGGLE.bit.GPIO49 = 1;
+        Reloj->alarm_time--;
+        if(Reloj->alarm_time == 65535)
+            Reloj->alarm_time = 60;
     }
 }
+
+/**************************************************************FUNCIONES PUBLICAS**********************************************************************/
 
 void Reloj_Init(Reloj_Handler * RelojHandler)
 {
@@ -185,6 +212,7 @@ void Reloj_Init(Reloj_Handler * RelojHandler)
 
     Reloj->Alarma_Estado = ALARM_OFF;
     Reloj->Alarma_set = ALARM_UNSET;
+    Reloj->alarm_time = ALARM_TIME;
 }
 
 void Reloj_Run(Reloj_Handler * RelojHandler)
@@ -208,6 +236,11 @@ void Reloj_Run(Reloj_Handler * RelojHandler)
     check_alarm(RelojHandler);
 }
 
+/**********************************************************************ISRs****************************************************************************/
+
+/*
+ * @brief: ISR del reloj, sirve para aumentar el segundero
+ */
 interrupt void segundero_isr(void)
 {
 
@@ -220,6 +253,9 @@ interrupt void segundero_isr(void)
     GpioDataRegs.GPATOGGLE.bit.GPIO9 = 1;
 }
 
+/*
+ * @biref: ISR del boton 1 para modificar la hora
+ */
 interrupt void set_hora_isr(void)
 {
     if(Reloj->Mode == CONFIG)
@@ -236,11 +272,15 @@ interrupt void set_hora_isr(void)
     }else if(Reloj->Mode == RELOJ && Reloj->Alarma_Estado == ALARM_ON)
     {
         Reloj->Alarma_Estado = ALARM_OFF;
+        Reloj->alarm_time = ALARM_TIME;
         GpioDataRegs.GPBCLEAR.bit.GPIO49 = 1;
     }
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 }
 
+/*
+ * @biref: ISR del boton 2 para modificar los minutos
+ */
 interrupt void set_minute_isr(void)
 {
     if(Reloj->Mode == CONFIG)
@@ -257,6 +297,7 @@ interrupt void set_minute_isr(void)
     }else if(Reloj->Mode == RELOJ && Reloj->Alarma_Estado == ALARM_ON)
     {
         Reloj->Alarma_Estado = ALARM_OFF;
+        Reloj->alarm_time = ALARM_TIME;
         GpioDataRegs.GPBCLEAR.bit.GPIO49 = 1;
     }
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;

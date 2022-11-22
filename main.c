@@ -71,7 +71,6 @@ void main(void) {
 
 	   InitPieVectTable();
 
-
 	// Paso 4. Inicializar todos los dispositivos periféricos:
 	// Esta funcion se encuentra en el archivo DSP2833x_InitPeripherals.c
 	// InitPeripherals();

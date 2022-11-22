@@ -42,40 +42,64 @@
  * GPIO17 -> PUSH_BOTTON_1
  * GPIO48 -> PUSH_BOTTON_2
  */
-#define SEGUNDO     1000000u
 
+#define SEGUNDO     1000000u            //Se define el segundo para la espera del timmer0
+#define MINUTO      60*SEGUNDO          //Se define el minuto por si se desea usar en el timmer0
+#define ALARM_TIME  60                  //Veces que suena la alarma
+
+/*
+ * @brief: Enumeración para indicar en que modo se encuentra el relo, existen tres modos: Reloj, Alarma y Configuración
+ */
 typedef enum{
     RELOJ,
     ALARM,
     CONFIG,
 }Reloj_Mode;
 
+/*
+ * @brief: Enumeración para determinar si la alarma se encuentra sonando o esta apagada
+ */
 typedef enum{
     ALARM_ON,
     ALARM_OFF,
 }Reloj_Alarm_State;
 
+/*
+ * @brief: Enumeración para determinar si se ha configurado la alarma por el usuario, esto para evitar que se active en 00:00
+ */
 typedef enum{
     ALARM_SET,
     ALARM_UNSET,
 }Reloj_Alarm_Set;
 
+/*
+ * @brief: Estructura de la hora, contiene minuto y hora
+ */
 typedef struct {
     unsigned int minuto;
     unsigned int hora;
 }Reloj_Hora;
 
+/*
+ * @brief: Estructura que contiene todo lo ncesario para administrar el reloj
+ */
 typedef struct{
     Reloj_Hora Hora_Actual;
     Reloj_Hora Hora_Alarma;
     Reloj_Mode Mode;
     Reloj_Alarm_State Alarma_Estado;
     Reloj_Alarm_Set Alarma_set;
+    unsigned int alarm_time;
 }Reloj_Handler;
 
+/*
+ * @brief: Función que inicia y configura el reloj, debe ir dentro del main antes de while
+ */
 void Reloj_Init(Reloj_Handler * RelojHandler);
 
+/*
+ * @brief: Funcion que hace funcionar el reloj, es necesario que esta funcion se enecuentre dentro del while del main
+ */
 void Reloj_Run(Reloj_Handler * RelojHandler);
-
 
 #endif /* INC_RELOJ_H_ */
