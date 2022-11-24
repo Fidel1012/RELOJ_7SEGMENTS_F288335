@@ -1,6 +1,6 @@
 ## RELOJ 7 SEGMENTOS F28335
 
-* Este programa hace funcionar un display de 7 segmentos de 4 digitos para mostrar la hora y los minutos, aunque esta configurado para que cada minuto sea un segundo. Se utiliza la plaxca de desarrollo que contiene diferentes elementos como 2 botones, un seleccionador hexadecimal y 4 leds. 
+* Este programa hace funcionar un display de 7 segmentos de 4 digitos para mostrar la hora y los minutos, aunque esta configurado para que cada minuto sea un segundo. Se utiliza la placa de desarrollo que contiene diferentes elementos como 2 botones, un seleccionador hexadecimal y 4 leds. 
 **EL DISPLAY QUE SE UTILIZA ES DE ANODO COMUN**, para utilizar un display de catodo comun se debe modificar el archivo Display.c.
 
 ``#define SEGUNDO     1000000u            //Se define el segundo para la espera del timmer0``
@@ -16,9 +16,10 @@
 Para modificar se puede hacer desde las siguientes macros en el archivo Reloj.h. **Evitar seleccionar el mismo numero para ambas.**
 
 ``#define ALARM_MODE  2                   //Para seleccionar el numero del selector en el que se configura la alarma``
+
 ``#define CONFIG_MODE 1                   //Para seleccionar el numero del selector en el que se configura la hora``
 
-* En modo reloj la alarma puede ser desactivada puslando cualquiera de los dos botones.
+* En modo reloj la alarma puede ser desactivada pulsando cualquiera de los dos botones.
 
 ### CONEXIONES
 

@@ -84,11 +84,10 @@ static void interrupt_set(void)
     //Se aesegura que las interrupciones requeridas se encuentren activadas
     PieCtrlRegs.PIEIER1.bit.INTx7 = 1;              //Se habilita la interrupción 1.7 TIMER_0
     PieCtrlRegs.PIEIER1.bit.INTx4 = 1;              //Se habilita la interrupción 1.4 XINT1
-
-    PieCtrlRegs.PIEIER12.bit.INTx3 = 1;
+    PieCtrlRegs.PIEIER12.bit.INTx3 = 1;             //Se habilita la interrupción 12.3 XINT5
 
     PieVectTable.XINT1 = &set_hora_isr;             //Se cambia la direccion de la ISR del GPIO17 a -> set_hora_isr
-    PieVectTable.XINT5 = &set_minute_isr;           //Se cambia la direccion de la ISR del GPIO17 a -> gpio_int1_isr
+    PieVectTable.XINT5 = &set_minute_isr;           //Se cambia la direccion de la ISR del GPIO17 a -> set_minute_isr
 
     //Se inicia el TIMER0
     InitCpuTimers();
@@ -150,7 +149,7 @@ static void check_mode(Reloj_Handler * RelojHandler)
 }
 
 /*
- * @brief: Función privada que verifica el estado de la alarma, es deecir si esta soonando o no
+ * @brief: Función privada que verifica el estado de la alarma, es decir si esta sonando o no
  */
 void check_alarm(Reloj_Handler *RelojHandler)
 {

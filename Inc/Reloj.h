@@ -8,7 +8,6 @@
 #ifndef INC_RELOJ_H_
 #define INC_RELOJ_H_
 
-
 /*
  * CONFIGURACIÓN DE LOS GPIOS Y CONEXIÓN
  * SEGMENTOS
@@ -84,7 +83,7 @@ typedef struct {
 }Reloj_Hora;
 
 /*
- * @brief: Estructura que contiene todo lo ncesario para administrar el reloj
+ * @brief: Estructura que contiene lo necesario para administrar el reloj
  */
 typedef struct{
     Reloj_Hora Hora_Actual;
