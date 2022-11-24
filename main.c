@@ -1,18 +1,3 @@
-/**************************************************************
- *                                                            *
- *                                                            *
- *             PLANTILLA DE PROYECTOS DEL F28335              *
- *                                                            *
- *                DR. OSCAR CARRANZA CASTILLO                 *
- *                                                            *
- *               INSTITUTO POLITECNICO NACIONAL               *
- *                                                            *
- *                   3 DE SEPTIEMBRE 2014                     *
- *                                                            *
- *             Actualizado el 3 de Abril del 2019            *
- *                                                            *
- **************************************************************
- */
 
 #include "DSP2833x_Device.h"
 #include "Inc/Reloj.h"
@@ -21,15 +6,7 @@ extern void InitSysCtrl(void);
 extern void InitPieCtrl(void);
 extern void InitPieVectTable(void);
 extern void GPIO_Init(void);
-extern void decodificadordisplay(unsigned int num);
 
-void delay(void);
-void display_binario(unsigned int num);
-
-unsigned int contador = 0;
-long i;
-
-extern unsigned int decenas, unidades;
 
 Reloj_Handler Reloj1;
 
